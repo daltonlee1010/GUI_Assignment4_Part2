@@ -1,0 +1,276 @@
+/*
+Author: Dalton Lee
+Created: November 20, at 3:00 PM
+Description: This webpage creates a multiplication table completely dynamically based on 
+parameters entered in an HTML form via the form of jQuery slider widgets. The webpage will
+validate these inputs using the jquery.validate.js plugin. Then, every time a new table is generated,
+it will be displayed in a new tab and labeled with the four parameters used to create it.
+
+File: style.css
+GUI Assignment: Using the jQuery Plugin/UI with Your Dynamic Table PART 2: jQuery UI Slider and Tab Widgets
+Dalton Lee, UMass Lowell Computer Science Student, dalton_lee@student.uml.edu
+Copyright (c) 2021 by Dalton. All rights reserved. May be freely copied or
+excerpted for educational purposes with credit to the author.
+updated by Dalton Lee on November 27, at 9:30 PM
+*/
+
+/*
+Set margin for page contents and bg color
+*/
+body {
+    margin: 1% 3% 1% 3%;
+    background-color: #abcabc
+}
+
+h1 {
+    font-size: 250%;
+    color: #09003b;
+    text-align: center;
+    padding-bottom: 1%;
+    border-bottom: 2mm double rgba(9, 83, 168, 0.6);
+    min-width: 15em;
+}
+
+
+/*
+set sliders to a fixed width centered within form div
+*/
+.mySliders {
+    margin: 0 auto 0 auto;
+    width: 25em;
+}
+
+/*
+Nice border, sizing, positioning, etc. for the second tab form div
+*/
+.formDiv2 {
+    margin: 50px auto 10px auto;
+    padding-bottom: 10px;
+    font-size: 100%;
+    width: 35em;
+    height: fit-content;
+    text-align: left;
+    border: 4mm ridge rgba(50, 158, 220, 0.6);
+}
+/*
+Give form some margins so it's not touching the borders
+*/
+.formDiv2 form {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 35em;
+}
+/*
+Input, label, button sizing and spacing
+*/
+.formDiv2 form input[type="text"] {
+    font-size: 90%;
+    width: 2.25em;
+}
+.formDiv2 form input {
+    margin-bottom: 5px;
+}
+.formDiv2 form .tab_label {
+    display: inline-block;
+    width: 7em;
+}
+#individual_del_button {
+    margin-bottom: 20px;
+}
+/*
+Space the tabs 30 pixels below whatever's above it
+*/
+.tabs_wrapper {
+    margin: 30px 0px 0px 0px;
+    width: 100%;
+}
+
+
+/*
+Styling for div with class formDiv, make width enough to fit the content, margin and padding
+to give the webpage nice spacing, align the text to the right so the text inputs are all directly
+on top/below one another.
+*/
+.formDiv {
+    margin: 10px auto 10px auto;
+    padding-bottom: 10px;
+    font-size: 100%;
+    width: 35em;
+    height: fit-content;
+    text-align: left;
+    border: 4mm ridge rgba(211, 220, 50, .6);
+}
+
+h4 {
+    font-size: 110%;
+    margin: 30px 10px 20px 10px;
+    text-align: center;
+}
+
+/*
+A little padding inside the form so text isn't touching borders
+*/
+.formDiv form {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 35em;
+}
+
+/*
+Labels are inline, next to their respective text inputs
+*/
+.formDiv form label {
+    display: inline-block;
+}
+.formDiv form .val_label {
+    width: 9em;
+}
+
+/*
+All inputs need spacing to look nice
+*/
+.formDiv form input {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/*
+Center the buttons.
+*/
+.buttonsDiv {
+    padding-right: 0;
+    padding-left: 2em;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*
+Buttons sized properly
+*/
+.formDiv form input[type="button"], .formDiv form input[type="reset"] {
+    font-size: 90%;
+}
+
+/*
+Set width for text input.. only two numbers at most is accepted for each box so there's
+no need to display more than that
+*/
+.formDiv form input[type="text"] {
+    font-size: 90%;
+    width: 2.25em;
+}
+
+/*
+Set overflow to auto so the container is scrollable when it needs to be to fit on the page
+*/
+.mult_container {
+    margin-top: 1%;
+    margin-left: 3%;
+    max-height: 50vh;
+    width: auto;
+    min-width: 300px;
+    overflow: auto;
+}
+
+/*
+Float the table to the left so it's displayed next to the form (as long as the page is wide
+enough. Make the numbers inside it bigger and red as well as defining border attributes
+to make the table look nice
+*/
+table {
+    float: left;
+    font-size: 150%;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    border: 2px solid black;
+    color: #550303;
+}
+
+table th, table td {
+    min-width: 3em;
+    border: 1px solid black;
+    border-spacing: 0;
+}
+
+/*
+Tricky part here, create a light yellow checkerboard background color for the table.
+First set all cells to a darker light yellow, then set other cells to a lighter light yellow
+by handpicking specific cells that fit the checkerboard style criteria.
+*/
+table td {
+    background: rgb(245, 248, 191);
+}
+
+table tbody tr:nth-child(2n) td:nth-child(2n+1) {
+    background: rgb(253, 255, 225);
+}
+
+table tbody tr:nth-child(2n+1) td:nth-child(2n) {
+    background: rgb(253, 255, 225);
+}
+
+/*
+Set header cell background color alternating every other one for both colors. This is so
+they override the data cells completely when scrolling with sticky-positioned head cells.
+*/
+table tbody tr:nth-child(2n) th {
+    background: rgb(253, 255, 225);
+}
+
+table tbody tr:nth-child(2n+1) th {
+    background: rgb(245, 248, 191);
+}
+
+table thead tr th:nth-child(2n+1) {
+    background: rgb(253, 255, 225);
+}
+
+table thead tr th:nth-child(2n) {
+    background: rgb(245, 248, 191);
+}
+
+/*
+Set all table head header cells to sticky position and to the top with a z-index of 1 so the top
+row of numbers is always displayed
+*/
+table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/*
+Top left cell has highest precedence, z-index of 2. Also set left to 0 so it's always displayed
+when scrolling side to side too
+*/
+table thead th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+
+/*
+Set all table body header cells to sticky position and to the left with a z-index of 1 so the first
+column of numbers is always displayed
+*/
+table tbody th {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+label.error {
+    height: 15px;
+    border-top: 1px solid #99182c;
+    border-right: 1px solid #99182c;
+    border-bottom: 1px solid #99182c;
+    margin-left: 9px;
+    padding: 1px 5px 1px 5px;
+    font-size: 90%;
+    color: #72101e;
+}

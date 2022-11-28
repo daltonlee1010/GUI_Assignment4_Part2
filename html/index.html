@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+Author: Dalton Lee
+Created: November 20, at 3:00 PM
+Description: This webpage creates a multiplication table completely dynamically based on 
+parameters entered in an HTML form via the form of jQuery slider widgets. The webpage will
+validate these inputs using the jquery.validate.js plugin. Then, every time a new table is generated,
+it will be displayed in a new tab and labeled with the four parameters used to create it.
+
+File: index.html
+GUI Assignment: Using the jQuery Plugin/UI with Your Dynamic Table PART 2: jQuery UI Slider and Tab Widgets
+Dalton Lee, UMass Lowell Computer Science Student, dalton_lee@student.uml.edu
+Copyright (c) 2021 by Dalton. All rights reserved. May be freely copied or
+excerpted for educational purposes with credit to the author.
+updated by Dalton Lee on November 27, at 9:30 PM
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dynamic Multiplication Table</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/smoothness/jquery-ui.css"> <!-- version 1.13.2 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script> <!-- version 1.13.2 -->
+    <script src="../js/jquery.validate.js"></script>
+    <script type = "text/javascript" src="../js/mult.js"></script>
+  </head>
+  <body id = "body">
+    <h1>Dynamic Multiplication Table</h1>
+    <!-- 
+    Create div element to contain the form, this will be styled in css..
+    -->
+    <div class="formDiv">
+      <h4>Multiplication Table Manipulator</h4>
+      <!-- 
+      Create form element that accepts three kinds of inputs, 'text', 'button', and 'reset'.
+      All text inputs are given a label and represent a value (permutation of row/col & min/max).
+      The button input is to submit values set in the 4 text inputs.
+      The reset input is to clear the 4 text inputs in the form.
+      -->
+      <form id = "mult_form">
+        <div id="columnSlider" class="mySliders"></div>
+        <label for="cmin" class="val_label">Column Min Value:</label>
+        <input type="text" id="cmin" name="cmin" maxlength="4"><br>
+        <label for="cmax" class="val_label">Column Max Value:</label>
+        <input type="text" id="cmax" name="cmax" maxlength="4"><br>
+        <br><br>
+        <div id="rowSlider" class="mySliders"></div>
+        <label for="rmin" class="val_label">Row Min Value:</label>
+        <input type="text" id="rmin" name="rmin" maxlength="4"><br>
+        <label for="rmax" class="val_label">Row Max Value:</label>
+        <input type="text" id="rmax" name="rmax" maxlength="4"><br>
+        <br>
+        <div class = "buttonsDiv">
+          <input type="button" value="Save" id = "save_button">
+        </div>
+      </form>
+    </div>
+    <div class="formDiv2">
+      <h4>Tab Manipulator</h4>
+      <form id = "tab_form">
+        <label for="description">(Start counting tabs at 1 starting from the left)</label><br><br>
+        <label for="individual_del" class="tab_label">Tab
+          to Delete:</label>
+        <input type="text" id="individual_del" name="individual_del" maxlength="4"><br>
+        <input type="button" value="Delete Individual Tab" id = "individual_del_button"><br>
+        <label for="multiple_del_min" class="tab_label">Tab Min Delete:</label>
+        <input type="text" id="multiple_del_min" name="multiple_del_min" maxlength="4"><br>
+        <label for="multiple_del_max" class="tab_label">Tab Max Delete:</label>
+        <input type="text" id="multiple_del_max" name="multiple_del_max" maxlength="4"><br>
+        <input type="button" value="Delete Multiple Tabs" id = "multiple_del_button"><br>
+        <br>
+      </form>
+    </div>
+    <div class="tabs_wrapper">
+      <div id="tabs_div">
+        <ul id="tabs_ul"></ul>
+      </div>
+    </div>
+  </body>
+</html>
