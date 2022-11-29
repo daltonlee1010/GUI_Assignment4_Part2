@@ -179,8 +179,9 @@ $().ready(function() {
         }
     });
 
-    updateMultContainer();
+    updateMultContainer(); // show initial mult table
 
+    // For saving multiplication tables to tabs
     $("#save_button").click(function() {
         // Tab elements
         count += 1;
@@ -196,7 +197,7 @@ $().ready(function() {
         container_tabbed.appendChild(table_copy);
 
         // Create tab html code and append it to the tab list
-        var li = $(`<li><a href='#tab-${count}'>
+        var li = $(`<li id='${count}'><a href='#tab-${count}'>
             C:(${parseInt($("#cmin").val(), 10)})-(${parseInt($("#cmax").val(), 10)}).
             R:(${parseInt($("#rmin").val(), 10)})-(${parseInt($("#rmax").val(), 10)})</a></li>`);
         $("#tabs_div").find( ".ui-tabs-nav").append( li ); //changed this line
@@ -269,7 +270,10 @@ $().ready(function() {
             return;
         }
         var indexTab = parseInt($("#individual_del").val(), 10) - 1;
-        $("#tabs_div").find(".ui-tabs-nav li:eq(" + indexTab + ")").remove();
+        var li_item = $("#tabs_div").find(".ui-tabs-nav li:eq(" + indexTab + ")");
+        var div_item_id = "#tab-".concat(`${li_item.attr('id')}`);
+        $(div_item_id).remove();
+        li_item.remove();
         $("#tabs_div").tabs("refresh");
         updateIndTabRules();
         updateMulTabMinRules();
@@ -298,8 +302,13 @@ $().ready(function() {
         }
         var indexTabMin = parseInt($("#multiple_del_min").val(), 10) - 1;
         var indexTabMax = parseInt($("#multiple_del_max").val(), 10) - 1;
-        for(var indexTab = indexTabMax; indexTab >= indexTabMin; indexTab--)
-            $("#tabs_div").find(".ui-tabs-nav li:eq(" + indexTab + ")").remove();
+        var li_item = " ";
+        for(var indexTab = indexTabMax; indexTab >= indexTabMin; indexTab--) {
+            li_item = $("#tabs_div").find(".ui-tabs-nav li:eq(" + indexTab + ")").remove();
+            var div_item_id = "#tab-".concat(`${li_item.attr('id')}`);
+            $(div_item_id).remove();
+            li_item.remove();
+        }
         $("#tabs_div").tabs("refresh");
         updateIndTabRules();
         updateMulTabMinRules();
