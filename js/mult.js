@@ -183,6 +183,12 @@ $().ready(function() {
 
     // For saving multiplication tables to tabs
     $("#save_button").click(function() {
+        // Check variable, set to false if there are any errors with text inputs
+        var check = $("#mult_form").valid(); // valid method can be found in jquery.validate.js
+        
+        if(check == false) {
+            return;
+        }
         // Tab elements
         count += 1;
 
