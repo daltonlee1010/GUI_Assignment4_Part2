@@ -168,8 +168,9 @@ Set overflow to auto so the container is scrollable when it needs to be to fit o
 */
 .mult_container {
     margin-top: 1%;
-    margin-left: 3%;
-    max-height: 50vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    max-height: 45vh;
     width: auto;
     min-width: 300px;
     overflow: auto;
